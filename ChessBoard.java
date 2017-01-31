@@ -94,9 +94,21 @@ public class ChessBoard {
   }
   
   //Returns string of attacking pieces' type, col, row to analysis.txt
-  String determineAttackPieces() {
-    return "-";
+String determineAttackPieces() {
+  for (int i = 0; i < pieces.size(); i++) {
+   ChessPiece currentPiece = pieces.get(i);
+   for (int j = 0; j < pieces.size(); j++) {
+    //Makes sure that you aren't comparing the same pieces 
+    if (j != i) {
+     ChessPiece nextPiece = pieces.get(j);
+     if (currentPiece.isAttacking(nextPiece)) {
+      return currentPiece.piece + " " +currentPiece.col + " " + currentPiece.row + " " + nextPiece.piece + " " +nextPiece.col + " " + nextPiece.row;
+     }
+    }
+   }
   }
+  return "-";
+ }
   
   static ChessPiece createChessPiece(char type, int col, int row) {
     char lowerPiece = Character.toLowerCase(type);
